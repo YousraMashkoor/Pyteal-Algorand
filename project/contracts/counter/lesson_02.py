@@ -13,9 +13,9 @@ def approval():
     global_owner = Bytes("owner") # byte slice (address)
     return program.event( # seq() to perform multiple opearations
         init = Seq(
-            App.globalPut(global_counter, int(0)),
+            App.globalPut(global_counter, Int(0)),
             App.globalPut(global_owner, Txn.sender()),
-            Approve()
+            Approve(),
         )
     )
 
