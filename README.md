@@ -83,4 +83,47 @@ cd project
 3. switch and if statement to detenct which type of transactions
 4. In pyeal variables are called Identifiers
 
+### **Lesson 03:** Deploying Contract on Sandbox:
+1. build a contract using command
+```
+cd project
+./build.sh contracts.counter.lesson_02.py
+```
+2. checkout /build/approval.teal
+3. Enter docker container
+```
+sudo ./sandbox enter algod
+```
+4. use following commands to check if the volume binding between docker and project is working
+```
+ls /data
+```
+5. get list of accounts and assign 1 to a variable
+```
+goal account list
+ONE = [any account hash here]
+```
+6. Deploying contract
+- --creator = owner/person deploying contract
+- --approval-prog = path of approval.teal from docker
+- --clear-prog = path of clear.teal from docker
+- --global-byteslices = total number of global byteslices used in program
+- --global-ints = total number of global ints used in program
+- --local-byteslices = total number of local byteslices used in program
+- --local-ints = total number of local ints used in program
+
+```
+goal app create --creator $ONE --approval-prog /data/build/approval.teal --clear-prog /data/build/clear.teal --global-byteslices 1 --global-ints 1 --local-byteslices 0 --local-ints 0
+```
+7. get deployed contract details
+```
+goal app info --app-id 1
+```
+8. read our smar contract storage
+```
+goal app read --global --app-id 1
+```
+format the output
+```
+goal app read --global --app-id 1 --guess-format
 ```
