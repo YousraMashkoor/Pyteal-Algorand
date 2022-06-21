@@ -63,3 +63,16 @@ Setup previlages
 sudo chmod 666 /var/run/docker.sock
 sudo service docker start
 ```
+
+
+
+## **Topics:**
+
+### **Lesson 01:** Creating First Smart Contract:
+1. Each stateful smart contract consists of two bits of teal code approval and clear
+2. build a contract using command
+```
+cd project
+./build.sh contracts.counter.step_01
+```
+3. After building a contracts if smart contracts returns sigle solitory 1 then that smart contract is build. Otherwise all other will fail
