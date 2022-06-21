@@ -76,3 +76,11 @@ cd project
 ./build.sh contracts.counter.step_01
 ```
 3. After building a contracts if smart contracts returns sigle solitory 1 then that smart contract is build. Otherwise all other will fail
+
+### **Lesson 02:** Initializing Contract:
+1. Smart contract have different life cycle
+2. initialize -> update -> delete -> Opt in -> close -> op op
+3. switch and if statement to detenct which type of transactions
+4. In pyeal variables are called Identifiers
+
+```
