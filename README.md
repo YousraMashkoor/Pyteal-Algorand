@@ -12,6 +12,7 @@ Follow this Guide to setup the repository with Sandbox
 **Lesson 04:** [Custom Opearations/Functions:](#lesson-04-custom-opearationsfunctions)  
 **Lesson 05:** [Debugging:](#lesson-05-debugging)   
 **Lesson 06:** [Scratch Variables and Constants:](#lesson-06-scratch-variables-and-constants)  
+**Lesson 07:** [Storage and Subroutines:](#lesson-07-local-storage-and-subroutines)  
 
 <br />
 <br />
@@ -103,3 +104,20 @@ tealdbg debug -d tx.dr --listen 0.0.0.0
 
 ## **Lesson 06:** [Scratch Variables and Constants:](https://github.com/YousraMashkoor/Pyteal-Algorand/blob/master/project/contracts/counter/lesson_06.py)
 Scratch variables are temporary variables that is destroyed after transaction ends
+
+## **Lesson 07:** [Local Storage and Subroutines:](https://github.com/YousraMashkoor/Pyteal-Algorand/blob/master/project/contracts/rock-paper-scissors/lesson_07.py)
+1. Subroutines is a type of a method/function in Pyteal
+2. Local storage is stored with every account and not the smart contract
+3. We're not using global storage so if multiple users are playing the games they are not modifying each others results.
+4. Smart Contract stores upto 4 accounts ids, where index(0) is the transaction/sender
+
+Build and deploy the contract (see steps mentioned in lesson_03)
+```
+./build.sh contracts.rock-paper-scissors.lesson_07
+
+goal app create --creator $ONE --approval-prog /data/build/approval.teal --clear-prog /data/build/clear.teal --global-byteslices 0 --global-ints 0 --local-byteslices 3 --local-ints 1
+
+goal app optin --from $ONE --app-id 14
+
+goal app read --local --from $ONE --app-id 14
+```
