@@ -137,3 +137,18 @@ goal app read --global --app-id 1 --guess-format
 ```
 goal app call --app-id 1 --from $ONE --app-arg "str:inc"
 ```
+
+### **Lesson 05:** Debugging:
+
+1. In order to debug we need to first create a transaction dump file
+```
+goal app call --app-id 2 --from $ONE --app-arg "str:dec" --dryrun-dup -o tx.dr
+```
+2. initialize debugger session, uses chrome debugger tool
+```
+tealdbg debug -d tx.dr --listen 0.0.0.0
+```
+3. Goto chrome://inspect/#devices
+4. Goto configure and add **localhost:9392**
+5. Goto Inspect
+6. Add breakpoint and debug your opearation
