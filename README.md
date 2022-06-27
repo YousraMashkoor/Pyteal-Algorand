@@ -152,3 +152,6 @@ tealdbg debug -d tx.dr --listen 0.0.0.0
 4. Goto configure and add **localhost:9392**
 5. Goto Inspect
 6. Add breakpoint and debug your opearation
+
+### **Lesson 06:** Scratch Variables and Constants:
+Scratch variables are temporary variables that is destroyed after transaction ends
