@@ -127,3 +127,13 @@ format the output
 ```
 goal app read --global --app-id 1 --guess-format
 ```
+
+### **Lesson 04:** Custom Opearations/Functions:
+1. no_op -> define own operations
+2. Cond() is like a switch statement. If none of the condition run, thats an error and transaction will reject
+3. Expressions needs to be defined separately like methods
+4. Build and deploy contracts using steps in Lession_03
+5. The command to call the smart contract is:
+```
+goal app call --app-id 1 --from $ONE --app-arg "str:inc"
+```
