@@ -2,23 +2,23 @@
 txn ApplicationID
 int 0
 ==
-bnz main_l16
+bnz main_l20
 txn OnCompletion
 int DeleteApplication
 ==
-bnz main_l15
+bnz main_l19
 txn OnCompletion
 int UpdateApplication
 ==
-bnz main_l14
+bnz main_l18
 txn OnCompletion
 int OptIn
 ==
-bnz main_l13
+bnz main_l17
 txn OnCompletion
 int CloseOut
 ==
-bnz main_l12
+bnz main_l16
 txn OnCompletion
 int NoOp
 ==
@@ -28,7 +28,7 @@ main_l7:
 txna ApplicationArgs 0
 byte "inc"
 ==
-bnz main_l11
+bnz main_l13
 txna ApplicationArgs 0
 byte "dec"
 ==
@@ -36,35 +36,53 @@ bnz main_l10
 err
 main_l10:
 byte "counter"
-byte "counter"
 app_global_get
-int 1
--
-app_global_put
-int 1
-return
+store 0
+load 0
+int 0
+>
+bnz main_l12
 main_l11:
-byte "counter"
-byte "counter"
-app_global_get
-int 1
-+
-app_global_put
 int 1
 return
 main_l12:
-int 0
-return
+byte "counter"
+load 0
+int 1
+-
+app_global_put
+b main_l11
 main_l13:
-int 0
-return
+byte "counter"
+app_global_get
+store 0
+load 0
+int 18446744073709551615
+<
+bnz main_l15
 main_l14:
-int 0
+int 1
 return
 main_l15:
+byte "counter"
+load 0
+int 1
++
+app_global_put
+b main_l14
+main_l16:
 int 0
 return
-main_l16:
+main_l17:
+int 0
+return
+main_l18:
+int 0
+return
+main_l19:
+int 0
+return
+main_l20:
 byte "counter"
 int 0
 app_global_put
