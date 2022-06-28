@@ -39,15 +39,15 @@ byte "reveal"
 bnz main_l11
 err
 main_l11:
-callsub sub3
+callsub sub4
 main_l12:
 int 0
 return
 main_l13:
-callsub sub2
+callsub sub3
 b main_l12
 main_l14:
-callsub sub1
+callsub sub2
 b main_l12
 main_l15:
 int 0
@@ -85,12 +85,92 @@ byte "reveal"
 byte ""
 app_local_put
 retsub
-sub1: // create_challenge
+sub1: // is_empty
+store 1
+load 1
+byte "opponent"
+app_local_get
+byte ""
+==
+load 1
+byte "commitment"
+app_local_get
+byte ""
+==
+&&
+load 1
+byte "reveal"
+app_local_get
+byte ""
+==
+&&
+load 1
+byte "wager"
+app_local_get
+int 0
+==
+&&
+retsub
+sub2: // create_challenge
+global GroupSize
+int 2
+==
+txn GroupIndex
+int 0
+==
+&&
+assert
+gtxn 0 RekeyTo
+global ZeroAddress
+==
+gtxn 1 RekeyTo
+global ZeroAddress
+==
+&&
+assert
+gtxn 1 TypeEnum
+int pay
+==
+gtxn 1 Receiver
+global CurrentApplicationAddress
+==
+&&
+gtxn 1 CloseRemainderTo
+global ZeroAddress
+==
+&&
+txna Accounts 1
+global CurrentApplicationID
+app_opted_in
+&&
+txn Sender
+callsub sub1
+&&
+txna Accounts 1
+callsub sub1
+&&
+txn NumAppArgs
+int 2
+==
+&&
+assert
+txn Sender
+byte "opponent"
+txna Accounts 1
+app_local_put
+txn Sender
+byte "wager"
+gtxn 1 Amount
+app_local_put
+txn Sender
+byte "commitment"
+txna ApplicationArgs 1
+app_local_put
+int 1
+return
+sub3: // accept_challenge
 int 0
 return
-sub2: // accept_challenge
-int 0
-return
-sub3: // reveal
+sub4: // reveal
 int 0
 return
