@@ -13,7 +13,7 @@ Follow this Guide to setup the repository with Sandbox
 **Lesson 05:** [Debugging:](#lesson-05-debugging)   
 **Lesson 06:** [Scratch Variables and Constants:](#lesson-06-scratch-variables-and-constants)  
 **Lesson 07:** [Storage and Subroutines:](#lesson-07-local-storage-and-subroutines)  
-
+**Lesson 08:** [Transaction Grouping and Security:](#lesson-08-transaction-grouping-and-security)
 <br />
 <br />
 
@@ -121,3 +121,25 @@ goal app optin --from $ONE --app-id 14
 
 goal app read --local --from $ONE --app-id 14
 ```
+
+## **Lesson 08:** [Transaction Grouping and Security:](https://github.com/YousraMashkoor/Pyteal-Algorand/blob/master/project/contracts/rock-paper-scissors/lesson_08.py)  
+
+
+We need to make sure a transaction (Algos) exists and that can be checked using "Transaction Grouping"  
+Guideline Conditions to check when dealing with transaction grouping or when writing contracts  
+
+https://developer.algorand.org/docs/get-details/dapps/avm/teal/guidelines/
+
+Since this is a group transaction, two opponent needs to first opt-in to the contract and then a group transaction needs to be run  
+
+1. Compile the contract `./build.sh contracts.rock-paper-scissors.lesson_08`
+2. Save the two account in $ONE and $TWO from `goal account list` 
+3. Deploy the contract `goal app create --creator $ONE --approval-prog /data/build/approval.teal --clear-prog /data/build/clear.teal --global-byteslices 0 --global-ints 0 --local-byteslices 3 --local-ints 1`
+4. create a config.sh file using `goal app info --app-id 16`
+5. opt-in the two account into the contract 
+```
+goal app optin --app-id 16 --from $ONE
+goal app optin --app-id 16 --from $TWO
+```
+6. execute the challenge.sh `chmod +x /data/contracts/rock-paper-scissors/challenge.sh` and then `/data/contracts/rock-paper-scissors/challenge.sh`
+7. Read the app data `goal app read --local --from $ONE --app-id 16 --guess-format`
